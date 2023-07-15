@@ -39,7 +39,7 @@ const getAdminRoute = errorWrapper(async (req, res, next) => {
   } else {
     return next(
       new CustomError(
-        "You don't have an authorization for this operation.",
+        "Only admins can access this route",
         403
       )
     );
