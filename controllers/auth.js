@@ -2,7 +2,9 @@ const CustomError = require("../helpers/error/CustomError");
 const errorWrapper = require("express-async-handler");
 const User = require("../models/User");
 const { isMatchPassword } = require("../helpers/auth/authHelpers");
+const jwt = require("jsonwebtoken");
 
+// register
 const register = errorWrapper(async (req, res, next) => {
   const { username, email, password } = req.body;
 
@@ -17,6 +19,7 @@ const register = errorWrapper(async (req, res, next) => {
   });
 });
 
+// login
 const login = errorWrapper(async (req, res, next) => {
   const { username, password } = req.body;
 
@@ -30,8 +33,18 @@ const login = errorWrapper(async (req, res, next) => {
   if (!isMatchPassword(password, user.password))
     return next(new CustomError("Wrong password!", 400));
 
+  const access_token = jwt.sign(
+    {
+      id: user._id,
+      isAdmin: user.isAdmin,
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "3d" }
+  );
+
   return res.status(200).json({
     user: { ...user._doc, password: undefined },
+    access_token,
   });
 });
 
