@@ -35,7 +35,7 @@ const login = errorWrapper(async (req, res, next) => {
 
   const access_token = jwt.sign(
     {
-      id: user._id,
+      _id: user._id,
       isAdmin: user.isAdmin,
     },
     process.env.JWT_SECRET,
