@@ -19,7 +19,7 @@ router.put("/:id", getAccessToRoute, updateCart);
 router.delete("/:id", getAccessToRoute, deleteCart);
 
 // this id is user id
-router.get("/:id", [getAccessToRoute, getOperationRoute], getCart);
+router.get("/find/:id", [getAccessToRoute, getOperationRoute], getCart);
 router.get("/", [getAccessToRoute, getAdminRoute], getAll);
 
 module.exports = router;
