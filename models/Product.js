@@ -16,11 +16,15 @@ const ProductSchema = new Schema(
       required: [true, "Please provide a image"],
     },
     categories: Array,
-    size: String,
-    color: String,
+    size: Array,
+    color: Array,
     price: {
       type: Number,
       required: [true, "Please provide a price."],
+    },
+    inStock: {
+      type: Boolean,
+      default: true,
     },
   },
   {
