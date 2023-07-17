@@ -4,11 +4,13 @@ require("dotenv").config();
 const connectDB = require("./helpers/db/connectDB");
 const routers = require("./routers");
 const errorHandler = require("./middlewares/error/errorHandler");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 5000;
 
 connectDB();
 
+app.use(cors());
 app.use(express.json());
 app.use("/api", routers);
 app.use(errorHandler);
